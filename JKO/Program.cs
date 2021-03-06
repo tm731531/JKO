@@ -6,7 +6,7 @@ namespace JKO
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            throw new Exception("還沒做");
         }
     }
 }
