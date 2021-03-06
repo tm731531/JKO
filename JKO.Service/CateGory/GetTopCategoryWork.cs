@@ -31,8 +31,12 @@ namespace JKO.Service
                     return;
                 }
                 var datas = _mainRepository.listRepositry.SearchDto(new JKOListingDto() { user_name = _args[1] });
-                var targetCategory = datas.GroupBy(x => x.category).OrderByDescending(x => x.Count()).FirstOrDefault().Key;
-                Console.WriteLine(targetCategory);
+                var targetCategory = datas.GroupBy(x => x.category).OrderByDescending(x => x.Count()).FirstOrDefault();
+                if (targetCategory is null) { }
+                else
+                {
+                    Console.WriteLine(targetCategory.Key);
+                }
             }
             catch (Exception ex) {
 

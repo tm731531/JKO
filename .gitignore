@@ -340,3 +340,5 @@ ASALocalRun/
 healthchecksdb
 /JKO/App.config
 /JKO.Service/CateGory/GETCATEGORY.cs
+/JKO/run.sh
+/JKO/build.sh
