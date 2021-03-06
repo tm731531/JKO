@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JKO.Service;
+using System;
 
 namespace JKO
 {
@@ -6,7 +7,14 @@ namespace JKO
     {
         static void Main(string[] args)
         {
-            throw new Exception("還沒做");
+            var crawler = new WorkerFactory().GetWorker(args);
+            if (crawler != null)
+            {
+                crawler.DoWork();
+            }
+            else {
+                Console.WriteLine("Error Job Type");
+            }
         }
     }
 }
