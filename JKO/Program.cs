@@ -1,4 +1,6 @@
-﻿using JKO.Service;
+﻿using JKO.Dao;
+using JKO.Model.DTO;
+using JKO.Service;
 using System;
 
 namespace JKO
@@ -6,7 +8,7 @@ namespace JKO
     class Program
     {
         static void Main(string[] args)
-        {
+         {
             var crawler = new WorkerFactory().GetWorker(args);
             if (crawler != null)
             {

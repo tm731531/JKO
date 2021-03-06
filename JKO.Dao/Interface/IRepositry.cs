@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace JKO.Dao
+namespace JKO.Dao.Interface
 {
-    interface IRepositry
+   public  interface IRepositry<T>
     {
+        bool InsertDto(T data);
+        bool DeleteDto(T data);
+        IEnumerable<T> SearchDto(T data);
+
     }
 }

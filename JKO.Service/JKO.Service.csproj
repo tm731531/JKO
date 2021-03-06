@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="LISTING\" />
+    <Folder Include="CateGory\" />
     <Folder Include="User\" />
   </ItemGroup>
 
