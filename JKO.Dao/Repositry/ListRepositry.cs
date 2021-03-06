@@ -9,6 +9,9 @@ namespace JKO.Dao.Repositry
 {
 
 
+    /// <summary>
+    /// 清單列表資料
+    /// </summary>
 
     public class ListRepositry : IRepositry<JKOListingDto>
     {
@@ -73,24 +76,6 @@ namespace JKO.Dao.Repositry
             using (var conn = _DatabaseConnection.Create())
             {
                 var rtndata = conn.Query<JKOListingDto>(sqlstr, jKOListingDto);
-                return rtndata;
-            }
-        }
-
-        public IEnumerable<JKOListingDto> SearchAllDto()
-        {
-            var sqlstr = @"SELECT [id]
-                                 ,[title]
-                                 ,[description]
-                                 ,[price]
-                                 ,[user_name]
-                                 ,[category]
-                                 ,[create_time]
-                             FROM [dbo].[jko_listing](nolock)
-                             WHERE is_deleted=0";
-            using (var conn = _DatabaseConnection.Create())
-            {
-                var rtndata = conn.Query<JKOListingDto>(sqlstr);
                 return rtndata;
             }
         }

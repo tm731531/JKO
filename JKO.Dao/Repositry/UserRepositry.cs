@@ -9,7 +9,9 @@ namespace JKO.Dao.Repositry
 {
 
 
-
+    /// <summary>
+    /// 使用者資料
+    /// </summary>
     public class UserRepositry : IRepositry<JKOUserDto>
     {
         private IDatabaseConnection _DatabaseConnection;
@@ -52,17 +54,6 @@ namespace JKO.Dao.Repositry
             using (var conn = _DatabaseConnection.Create())
             {
                 var rtndata = conn.Query<JKOUserDto>(sqlstr, jKOUserDto);
-                return rtndata;
-            }
-        }
-        public IEnumerable<JKOUserDto> SearchAllDto()
-        {
-            var sqlstr = @"SELECT [id]
-                                 ,[user_name]
-                           FROM [dbo].[jko_user](nolock)";
-            using (var conn = _DatabaseConnection.Create())
-            {
-                var rtndata = conn.Query<JKOUserDto>(sqlstr);
                 return rtndata;
             }
         }
