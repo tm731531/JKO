@@ -7,6 +7,10 @@ using System.Linq;
 
 namespace JKO.Service
 {
+
+    /// <summary>
+    /// 取得商品分類
+    /// </summary>
     class GetCategoryWork : IWorker
     {
         private string[] _args;
@@ -19,42 +23,48 @@ namespace JKO.Service
         }
         public void DoWork()
         {
-
-            IEnumerable<JKOUserDto> userData = _mainRepository.userRepositry.SearchDto(new Model.DTO.JKOUserDto() { user_name = _args[1] });
-            if (userData.Count() == 0)
+            try
             {
-                Console.WriteLine("Error - unknown user");
-                return;
-            }
-            var datas = _mainRepository.listRepositry.SearchDto(new JKOListingDto() { user_name = _args[1] });
-
-            if (datas.Where(x => x.category == _args[2]).Count() == 0)
-            {
-                Console.WriteLine("Error - category not found");
-            }
-            else
-            {
-                try
+                IEnumerable<JKOUserDto> userData = _mainRepository.userRepositry.SearchDto(new Model.DTO.JKOUserDto() { user_name = _args[1] });
+                if (userData.Count() == 0)
                 {
-                    if (_args[3] == "sort_price" && _args[4] == "asc")
-                    { datas = datas.OrderBy(x => x.price); }
-                    if (_args[3] == "sort_price" && _args[4] == "dsc")
-                    { datas = datas.OrderByDescending(x => x.price); }
-                    if (_args[3] == "sort_time" && _args[4] == "asc")
-                    { datas = datas.OrderBy(x => x.create_time); }
-                    if (_args[3] == "sort_time" && _args[4] == "dsc")
-                    { datas = datas.OrderByDescending(x => x.create_time); }
-                    foreach (var data in datas) {
-
+                    Console.WriteLine("Error - unknown user");
+                    return;
+                }
+                var datas = _mainRepository.listRepositry.SearchDto(new JKOListingDto() { user_name = _args[1] });
+                if (datas.Where(x => x.category == _args[2]).Count() == 0)
+                {
+                    Console.WriteLine("Error - category not found");
+                }
+                else
+                {
+                    foreach (var data in GetOrderData(datas))
+                    {
                         Console.WriteLine($"{data.title}|{data.description}|{data.price}|{data.create_time}|{data.category}|{data.user_name}");
                     }
 
-                }
-                catch (Exception ex)
-                {
 
                 }
             }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Error {ex.Message}");
+            }
+        }
+
+        private IEnumerable<JKOListingDto> GetOrderData(IEnumerable<JKOListingDto> datas)
+        {
+            if (_args[3] == "sort_price" && _args[4] == "asc")
+            { datas = datas.OrderBy(x => x.price); }
+            else if (_args[3] == "sort_price" && _args[4] == "dsc")
+            { datas = datas.OrderByDescending(x => x.price); }
+            else if (_args[3] == "sort_time" && _args[4] == "asc")
+            { datas = datas.OrderBy(x => x.create_time); }
+            else if (_args[3] == "sort_time" && _args[4] == "dsc")
+            { datas = datas.OrderByDescending(x => x.create_time); }
+
+            return datas;
         }
     }
 }

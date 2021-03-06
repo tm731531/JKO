@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace JKO.Service
 {
+    /// <summary>
+    /// 取得第一名數量的分類
+    /// </summary>
     class GetTopCategoryWork : IWorker
     {
         private string[] _args;
@@ -19,16 +22,23 @@ namespace JKO.Service
         }
         public void DoWork()
         {
-
-            IEnumerable<JKOUserDto> userData = _mainRepository.userRepositry.SearchDto(new Model.DTO.JKOUserDto() { user_name = _args[1] });
-            if (userData.Count() == 0)
+            try
             {
-                Console.WriteLine("Error - unknown user");
-                return;
+                IEnumerable<JKOUserDto> userData = _mainRepository.userRepositry.SearchDto(new Model.DTO.JKOUserDto() { user_name = _args[1] });
+                if (userData.Count() == 0)
+                {
+                    Console.WriteLine("Error - unknown user");
+                    return;
+                }
+                var datas = _mainRepository.listRepositry.SearchDto(new JKOListingDto() { user_name = _args[1] });
+                var targetCategory = datas.GroupBy(x => x.category).OrderByDescending(x => x.Count()).FirstOrDefault().Key;
+                Console.WriteLine(targetCategory);
             }
-            var datas = _mainRepository.listRepositry.SearchDto(new JKOListingDto() { user_name = _args[1] });
-            var targetCategory = datas.GroupBy(x => x.category).OrderByDescending(x => x.Count()).FirstOrDefault().Key;
-            Console.WriteLine(targetCategory);
+            catch (Exception ex) {
+
+
+                Console.WriteLine($"Error {ex.Message}");
+            }
         }
     }
 }

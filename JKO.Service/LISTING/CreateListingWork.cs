@@ -20,35 +20,38 @@ namespace JKO.Service
         }
         public void DoWork()
         {
-            IEnumerable<JKOUserDto> userData = _mainRepository.userRepositry.SearchDto(new Model.DTO.JKOUserDto() { user_name = _args[1] });
-            if (userData.Count() == 0)
+            try
             {
-                Console.WriteLine("Error - unknown user");
-
-            }
-            else
-            {
-                try
+                IEnumerable<JKOUserDto> userData = _mainRepository.userRepositry.SearchDto(new Model.DTO.JKOUserDto() { user_name = _args[1] });
+                if (userData.Count() == 0)
                 {
-                  var returnData=  _mainRepository.listRepositry.InsertDto(
-                        new JKOListingDto()
-                        {
-                            user_name = _args[1]
-                        ,
-                            title = _args[2]
-                        ,
-                            description = _args[3]
-                        ,
-                            price = Convert.ToInt32(_args[4])
-                        ,
-                            category = _args[5]
-                        });
+                    Console.WriteLine("Error - unknown user");
+
+                }
+                else
+                {
+
+                    var returnData = _mainRepository.listRepositry.InsertDto(
+                          new JKOListingDto()
+                          {
+                              user_name = _args[1]
+                          ,
+                              title = _args[2]
+                          ,
+                              description = _args[3]
+                          ,
+                              price = Convert.ToInt32(_args[4])
+                          ,
+                              category = _args[5]
+                          });
                     Console.WriteLine(returnData);
-                }
-                catch (Exception ex)
-                {
 
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error {ex.Message}");
+
             }
         }
     }

@@ -5,6 +5,10 @@ using System.Text;
 
 namespace JKO.Service
 {
+    /// <summary>
+    /// 註冊user
+    /// </summary>
+   
     class CreateUserWork : IWorker
     {
         private string[] _args;
@@ -21,7 +25,7 @@ namespace JKO.Service
                 _mainRepository.userRepositry.InsertDto(new Model.DTO.JKOUserDto() { user_name = _args[1] });
                 Console.WriteLine("Success");
             }
-            catch (Exception ex) {
+            catch (Exception) {
                 Console.WriteLine("Error - user already existing");
             }
             }

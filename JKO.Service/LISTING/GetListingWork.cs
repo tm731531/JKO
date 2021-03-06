@@ -7,6 +7,9 @@ using System.Text;
 
 namespace JKO.Service
 {
+    /// <summary>
+    /// 取得商品清單
+    /// </summary>
     class GetListingWork : IWorker
     {
         private string[] _args;
@@ -50,6 +53,7 @@ namespace JKO.Service
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error {ex.Message}");
 
             }
         }
