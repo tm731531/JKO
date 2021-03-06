@@ -7,12 +7,12 @@ using System.Text;
 
 namespace JKO.Service
 {
-    class GETLISTING : IWorker
+    class GetListingWork : IWorker
     {
         private string[] _args;
         private MainRepository _mainRepository;
 
-        public GETLISTING(string[] args, MainRepository mainRepository)
+        public GetListingWork(string[] args, MainRepository mainRepository)
         {
             _args = args;
             _mainRepository = mainRepository;

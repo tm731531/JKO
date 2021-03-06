@@ -49,13 +49,14 @@ namespace JKO.Dao.Repositry
                                       )";
             using (var conn = _DatabaseConnection.Create())
             {
-              return   conn.QuerySingle<int>(sqlstr, jKOListingDto);
-             
+                return conn.QuerySingle<int>(sqlstr, jKOListingDto);
+
             }
         }
 
         public IEnumerable<JKOListingDto> SearchDto(JKOListingDto jKOListingDto)
         {
+
             var sqlstr = @"SELECT [id]
                                  ,[title]
                                  ,[description]
@@ -65,7 +66,10 @@ namespace JKO.Dao.Repositry
                                  ,[create_time]
                              FROM [dbo].[jko_listing](nolock)
                              WHERE is_deleted=0
-                             AND id =@id";
+                             ";
+            if (jKOListingDto.id > 0) { sqlstr += " AND id = @id "; }
+            if (!string.IsNullOrEmpty(jKOListingDto.user_name)) { sqlstr += " AND user_name = @user_name "; }
+
             using (var conn = _DatabaseConnection.Create())
             {
                 var rtndata = conn.Query<JKOListingDto>(sqlstr, jKOListingDto);
@@ -73,7 +77,8 @@ namespace JKO.Dao.Repositry
             }
         }
 
-        public IEnumerable<JKOListingDto> SearchAllDto() {
+        public IEnumerable<JKOListingDto> SearchAllDto()
+        {
             var sqlstr = @"SELECT [id]
                                  ,[title]
                                  ,[description]

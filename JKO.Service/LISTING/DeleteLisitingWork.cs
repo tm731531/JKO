@@ -7,12 +7,12 @@ using System.Text;
 
 namespace JKO.Service
 {
-    class DeleteLisiting : IWorker
+    class DeleteLisitingWork : IWorker
     {
         private string[] _args;
         private MainRepository _mainRepository;
 
-        public DeleteLisiting(string[] args, MainRepository mainRepository)
+        public DeleteLisitingWork(string[] args, MainRepository mainRepository)
         {
             _args = args;
             _mainRepository = mainRepository;

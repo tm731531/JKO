@@ -21,25 +21,25 @@ namespace JKO.Service
                     break;
                 case "CREATE_LISTING":
                     //建立 list
-                    worker = new CreateListing(args, mainRepository);
+                    worker = new CreateListingWork(args, mainRepository);
                     break;
                 case "GET_LISTING":
 
                     //取得 list
-                    worker = new GETLISTING(args, mainRepository);
+                    worker = new GetListingWork(args, mainRepository);
                     break;
                 case "GET_CATEGORY":
                     //取得 分類
-                    throw new Exception("還沒做");
+                    worker = new GetCategoryWork(args, mainRepository);
                     break;
                 case "GET_TOP_CATEGORY":
                     //取得 排名
-                    throw new Exception("還沒做");
+                    worker = new GetTopCategoryWork(args, mainRepository);
                     break;
 
                 case "DELETE_LISTING":
                     //刪除清單 
-                    worker = new DeleteLisiting(args, mainRepository);
+                    worker = new DeleteLisitingWork(args, mainRepository);
                     break;
 
 

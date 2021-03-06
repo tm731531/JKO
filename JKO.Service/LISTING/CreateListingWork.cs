@@ -8,12 +8,12 @@ using System.Linq;
 namespace JKO.Service
 {
 
-    class CreateListing : IWorker
+    class CreateListingWork : IWorker
     {
         private string[] _args;
         private MainRepository _mainRepository;
 
-        public CreateListing(string[] args, MainRepository mainRepository)
+        public CreateListingWork(string[] args, MainRepository mainRepository)
         {
             _args = args;
             _mainRepository = mainRepository;
