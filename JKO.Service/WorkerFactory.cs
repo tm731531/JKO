@@ -24,9 +24,9 @@ namespace JKO.Service
                     worker = new CreateListing(args, mainRepository);
                     break;
                 case "GET_LISTING":
-                    
+
                     //取得 list
-                    throw new Exception("還沒做");
+                    worker = new GETLISTING(args, mainRepository);
                     break;
                 case "GET_CATEGORY":
                     //取得 分類
