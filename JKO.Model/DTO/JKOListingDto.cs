@@ -32,7 +32,11 @@ namespace JKO.Model.DTO
         /// 分類
         /// </summary>
         public string category { get; set; }
-        
+        /// <summary>
+        /// 是否刪除
+        /// </summary>
+        public bool is_deleted { get; set; }
+
         /// <summary>
         /// 生成時間
         /// </summary>

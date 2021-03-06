@@ -29,16 +29,16 @@ namespace JKO.Dao.Repositry
             }
         }
 
-        public bool InsertDto(JKOUserDto jKOUserDto)
+        public int InsertDto(JKOUserDto jKOUserDto)
         {
             var sqlstr = @"INSERT INTO [dbo].[jko_user]
-                                         ([user_name])
+                                         ([user_name]) 
+                                  OUTPUT INSERTED.[id]
                                   VALUES
                                          (@user_name)";
             using (var conn = _DatabaseConnection.Create())
             {
-                conn.Execute(sqlstr, jKOUserDto);
-                return true;
+                return conn.QuerySingle<int>(sqlstr, jKOUserDto);
             }
 
         }

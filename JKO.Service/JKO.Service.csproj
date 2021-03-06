@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="LISTING\" />
     <Folder Include="CateGory\" />
-    <Folder Include="User\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JKO.Dao\JKO.Dao.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ namespace JKO
     class Program
     {
         static void Main(string[] args)
-         {
+        {
             var crawler = new WorkerFactory().GetWorker(args);
             if (crawler != null)
             {

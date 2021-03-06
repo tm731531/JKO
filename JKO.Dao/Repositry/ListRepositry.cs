@@ -20,7 +20,8 @@ namespace JKO.Dao.Repositry
         }
         public bool DeleteDto(JKOListingDto jKOListingDto)
         {
-            var sqlstr = @" DELETE  [jko_user] WITH (tablock)
+            var sqlstr = @" UPDATE  [jko_listing] WITH (tablock)
+                            SET is_deleted=1
                             WHERE id = @id";
             using (var conn = _DatabaseConnection.Create())
             {
@@ -29,7 +30,7 @@ namespace JKO.Dao.Repositry
             }
         }
 
-        public bool InsertDto(JKOListingDto jKOListingDto)
+        public int InsertDto(JKOListingDto jKOListingDto)
         {
             var sqlstr = @"INSERT INTO [dbo].[jko_listing]
                                       ([title]
@@ -38,6 +39,7 @@ namespace JKO.Dao.Repositry
                                       ,[user_name]
                                       ,[category]
                                       )
+                                OUTPUT INSERTED.[id]
                                 VALUES
                                       (@title
                                       ,@description
@@ -47,8 +49,8 @@ namespace JKO.Dao.Repositry
                                       )";
             using (var conn = _DatabaseConnection.Create())
             {
-                conn.Execute(sqlstr, jKOListingDto);
-                return true;
+              return   conn.QuerySingle<int>(sqlstr, jKOListingDto);
+             
             }
         }
 
@@ -61,10 +63,12 @@ namespace JKO.Dao.Repositry
                                  ,[user_name]
                                  ,[category]
                                  ,[create_time]
-                             FROM [dbo].[jko_listing](nolock)";
+                             FROM [dbo].[jko_listing](nolock)
+                             WHERE is_deleted=0
+                             AND id =@id";
             using (var conn = _DatabaseConnection.Create())
             {
-                var rtndata = conn.Query<JKOListingDto>(sqlstr);
+                var rtndata = conn.Query<JKOListingDto>(sqlstr, jKOListingDto);
                 return rtndata;
             }
         }
@@ -77,7 +81,8 @@ namespace JKO.Dao.Repositry
                                  ,[user_name]
                                  ,[category]
                                  ,[create_time]
-                             FROM [dbo].[jko_listing](nolock)";
+                             FROM [dbo].[jko_listing](nolock)
+                             WHERE is_deleted=0";
             using (var conn = _DatabaseConnection.Create())
             {
                 var rtndata = conn.Query<JKOListingDto>(sqlstr);

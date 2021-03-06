@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JKO.Dao;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,29 +12,37 @@ namespace JKO.Service
 
             IWorker worker = null;
             var jobName = args[0];
+            MainRepository mainRepository = new MainRepository();
             switch (jobName)
             {
                 case "REGISTER":
                     //註冊User
-                    throw new Exception("還沒做");
+                    worker = new CreateUserWork(args, mainRepository);
+                    break;
                 case "CREATE_LISTING":
                     //建立 list
-                    throw new Exception("還沒做");
+                    worker = new CreateListing(args, mainRepository);
+                    break;
                 case "GET_LISTING":
+                    
                     //取得 list
                     throw new Exception("還沒做");
+                    break;
                 case "GET_CATEGORY":
                     //取得 分類
                     throw new Exception("還沒做");
+                    break;
                 case "GET_TOP_CATEGORY":
                     //取得 排名
                     throw new Exception("還沒做");
+                    break;
 
                 case "DELETE_LISTING":
                     //刪除清單 
-                    throw new Exception("還沒做");
+                    worker = new DeleteLisiting(args, mainRepository);
+                    break;
 
-                    
+
 
 
                 default:
