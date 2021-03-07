@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[jko_listing] (
-    [id]          INT            IDENTITY (1, 1) NOT NULL,
+    [id]          INT            IDENTITY (100001, 1) NOT NULL,
     [title]       NVARCHAR (100) NOT NULL,
     [description] NVARCHAR (100) NOT NULL,
     [price]       INT            NOT NULL,
@@ -15,4 +15,11 @@
 
 
 
+
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [i_jko_listing_isdeleted_username]
+    ON [dbo].[jko_listing]([is_deleted] ASC, [user_name] ASC);
 
